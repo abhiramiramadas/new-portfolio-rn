@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhirami Ramadas — field notes</title>
+<meta name="description" content="Abhirami Ramadas — final-year IT engineer, SAP HCM consultant, and person who annotates her own resume by hand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450;1,9..144,600&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14161c;
+    --ink-2:#1b1e26;
+    --paper:#f1ecdf;
+    --paper-dim:#e7e0cd;
+    --text:#ece7da;
+    --text-dim:#9a9a94;
+    --system:#93b37f;
+    --margin:#c06b7c;
+    --hair:#33363f;
+    --focus:#e7e0cd;
+    --text-on-accent:#14161c;
+    --emphasis:#f1ecdf;
+    --surface-text:#14161c;
+    --surface-text-dim:#5c584a;
+    --surface-accent:#7a5b63;
+    --surface-line:#c9bfa2;
+    --nav-bg:rgba(20,22,28,0.86);
+    --maxw:920px;
+  }
+
+  html[data-theme="light"]{
+    --ink:#fbf1ea;
+    --ink-2:#f5e6da;
+    --paper:#efe1f2;
+    --paper-dim:#e4cfe9;
+    --text:#463c46;
+    --text-dim:#9c8a97;
+    --system:#8fb89a;
+    --margin:#dd93a8;
+    --hair:#ecdbe0;
+    --focus:#463c46;
+    --text-on-accent:#2b232c;
+    --emphasis:#c66f8b;
+    --surface-text:#3a2c3c;
+    --surface-text-dim:#7c6875;
+    --surface-accent:#a1637f;
+    --surface-line:#ddbfd0;
+    --nav-bg:rgba(251,241,234,0.86);
+  }
+
+  html{ transition:none; }
+  body, .locker-btn, .envelope-btn, .btn, .chip, .vault-card, .photo-card{
+    transition-property:background-color, border-color, color, box-shadow, transform, opacity, max-height, margin-top;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* ambient drifting glow behind everything */
+  body::before{
+    content:''; position:fixed; top:-20%; left:-10%; width:70vw; height:70vw;
+    background:radial-gradient(circle, rgba(147,179,127,0.10), transparent 65%);
+    filter:blur(40px); z-index:0; pointer-events:none;
+    animation:driftA 22s ease-in-out infinite alternate;
+  }
+  body::after{
+    content:''; position:fixed; bottom:-20%; right:-10%; width:60vw; height:60vw;
+    background:radial-gradient(circle, rgba(192,107,124,0.09), transparent 65%);
+    filter:blur(40px); z-index:0; pointer-events:none;
+    animation:driftB 26s ease-in-out infinite alternate;
+  }
+  @keyframes driftA{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(6vw,8vh) scale(1.15); } }
+  @keyframes driftB{ 0%{ transform:translate(0,0) scale(1); } 100%{ transform:translate(-5vw,-6vh) scale(1.1); } }
+  header.nav, section, footer{ position:relative; z-index:1; }
+
+  ::selection{ background:var(--margin); color:var(--text-on-accent); }
+
+  a{ color:inherit; }
+  :focus-visible{ outline:2px solid var(--focus); outline-offset:3px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+
+  .mono{ font-family:'Space Mono',monospace; }
+  .serif{ font-family:'Fraunces',serif; }
+  .script{ font-family:'Caveat',cursive; }
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--nav-bg);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--hair);
+  }
+  .navrow{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:var(--maxw); margin:0 auto; gap:14px;
+  }
+  .theme-toggle{
+    background:none; border:1px solid var(--hair); border-radius:20px;
+    padding:6px 12px; cursor:pointer; color:var(--text-dim);
+    font-family:'Space Mono',monospace; font-size:12px; display:flex; align-items:center; gap:6px;
+    transition:border-color .2s ease, color .2s ease, transform .2s ease;
+  }
+  .theme-toggle:hover{ border-color:var(--system); color:var(--text); transform:translateY(-1px); }
+  .theme-toggle .icon{ font-size:13px; }
+  html[data-theme="light"] .theme-toggle .icon.moon,
+  html:not([data-theme="light"]) .theme-toggle .icon.sun{ display:none; }
+  .navmark{ font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.03em; color:var(--system); }
+  .navmark span{ color:var(--text-dim); }
+  nav.links{ display:flex; gap:22px; }
+  nav.links a{
+    font-family:'Space Mono',monospace; font-size:12px; text-decoration:none;
+    color:var(--text-dim); letter-spacing:0.04em; text-transform:lowercase;
+    transition:color .2s ease;
+  }
+  nav.links a:hover{ color:var(--text); }
+  @media (max-width:640px){ nav.links{ gap:14px; } nav.links a{ font-size:11px; } }
+
+  /* ---------- shared section chrome ---------- */
+  section{ padding:96px 0; border-bottom:1px solid var(--hair); position:relative; }
+  section:last-of-type{ border-bottom:none; }
+
+  .eyebrow{
+    font-family:'Space Mono',monospace; font-size:12px; color:var(--system);
+    letter-spacing:0.08em; text-transform:uppercase; margin:0 0 18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:'//'; color:var(--hair); }
+
+  .margin-note{
+    font-family:'Caveat',cursive; color:var(--margin); font-size:1.5rem;
+    line-height:1.25; display:inline-block; transform:rotate(-2deg);
+    position:relative; transition:transform .3s ease;
+    animation:wobble 4.5s ease-in-out infinite;
+  }
+  .margin-note.right{ transform:rotate(2deg); animation-delay:.6s; }
+  .margin-note:hover{ transform:rotate(4deg) scale(1.06); }
+  @keyframes wobble{
+    0%,100%{ transform:rotate(-2deg); }
+    50%{ transform:rotate(-4.5deg) translateY(-2px); }
+  }
+  .margin-note.right{ animation-name:wobbleR; }
+  @keyframes wobbleR{
+    0%,100%{ transform:rotate(2deg); }
+    50%{ transform:rotate(4.5deg) translateY(-2px); }
+  }
+
+  h2.section-title{
+    font-family:'Fraunces',serif; font-weight:450; font-style:italic;
+    font-size:clamp(1.8rem,4vw,2.6rem); margin:0 0 40px; color:var(--text);
+  }
+
+  .fade-in{ opacity:0; transform:translateY(34px); transition:opacity .8s ease, transform .8s ease; }
+  .fade-in.visible{ opacity:1; transform:translateY(0); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-top:120px; padding-bottom:80px; }
+  .hero-anim{ opacity:0; transform:translateY(24px); animation:heroIn .8s cubic-bezier(.22,1,.36,1) forwards; }
+  @keyframes heroIn{ to{ opacity:1; transform:translateY(0); } }
+  .status-line{
+    font-family:'Space Mono',monospace; font-size:13px; color:var(--system);
+    margin-bottom:28px; display:flex; align-items:center; gap:10px;
+  }
+  .status-dot{ width:7px; height:7px; border-radius:50%; background:var(--system); box-shadow:0 0 8px var(--system); animation:pulse 2.2s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+  .status-line .cursor{ display:inline-block; width:8px; height:15px; background:var(--system); animation:blink 1s step-end infinite; }
+  @keyframes blink{ 0%,49%{opacity:1;} 50%,100%{opacity:0;} }
+
+  h1.hero-title{
+    font-family:'Fraunces',serif; font-weight:450; font-size:clamp(2.4rem,7vw,4.6rem);
+    line-height:1.05; margin:0 0 28px; letter-spacing:-0.01em; max-width:12ch;
+  }
+  h1.hero-title em{ font-style:italic; color:var(--margin); font-weight:450; display:inline-block; animation:emFloat 3.5s ease-in-out infinite; }
+  @keyframes emFloat{ 0%,100%{ transform:translateY(0) rotate(0);} 50%{ transform:translateY(-4px) rotate(-1deg); } }
+
+  .hero-sub{ max-width:52ch; color:var(--text-dim); font-size:1.05rem; margin-bottom:34px; }
+
+  .hero-annot{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+
+  .scroll-cue{ display:flex; align-items:center; gap:8px; margin-top:56px; font-family:'Space Mono',monospace; font-size:11px; color:var(--text-dim); }
+  .scroll-cue .arrow{ display:inline-block; animation:bounceDown 1.6s ease-in-out infinite; }
+  @keyframes bounceDown{ 0%,100%{ transform:translateY(0); opacity:.5; } 50%{ transform:translateY(6px); opacity:1; } }
+
+  .btnrow{ display:flex; gap:14px; margin-top:38px; flex-wrap:wrap; }
+  .btn{
+    font-family:'Space Mono',monospace; font-size:12.5px; letter-spacing:0.03em;
+    text-decoration:none; padding:12px 20px; border:1px solid var(--hair);
+    color:var(--text); transition:border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease;
+    text-transform:lowercase; display:inline-block;
+  }
+  .btn:hover{ border-color:var(--system); background:rgba(147,179,127,0.08); transform:translateY(-3px); box-shadow:0 8px 18px rgba(0,0,0,0.25); }
+  .btn:active{ transform:translateY(-1px) scale(.98); }
+  .btn.filled{ background:var(--system); color:var(--text-on-accent); border-color:var(--system); font-weight:700; }
+  .btn.filled:hover{ background:var(--paper); border-color:var(--paper); color:var(--surface-text); }
+
+  /* ---------- about ---------- */
+  .about-grid{ display:grid; grid-template-columns:1.3fr 0.9fr; gap:56px; align-items:start; }
+  @media (max-width:760px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
+  .about-body p{ margin:0 0 18px; color:var(--text); font-size:1.02rem; max-width:56ch; }
+  .about-body .lede{ font-family:'Fraunces',serif; font-style:italic; font-size:1.35rem; color:var(--emphasis); line-height:1.45; margin-bottom:24px; }
+
+  .stack{ margin-top:8px; }
+  .stack-label{ font-family:'Space Mono',monospace; font-size:11px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:'Space Mono',monospace; font-size:11.5px; padding:6px 11px;
+    border:1px solid var(--hair); color:var(--text-dim); border-radius:2px;
+  }
+
+  .about-side{ border-left:1px solid var(--hair); padding-left:32px; }
+  @media (max-width:760px){ .about-side{ border-left:none; border-top:1px solid var(--hair); padding-left:0; padding-top:28px; } }
+  .about-side .margin-note{ display:block; margin-bottom:22px; }
+
+  /* ---------- work entries ---------- */
+  .entry{
+    display:grid; grid-template-columns:110px 1fr; gap:32px;
+    padding:34px 0; border-top:1px solid var(--hair);
+    opacity:0; transform:translateX(-16px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .entry.visible{ opacity:1; transform:translateX(0); }
+  .entry:nth-of-type(1){ transition-delay:.05s; }
+  .entry:nth-of-type(2){ transition-delay:.16s; }
+  .entry:nth-of-type(3){ transition-delay:.27s; }
+  .entry:nth-of-type(4){ transition-delay:.38s; }
+  .entry:first-of-type{ border-top:none; }
+  @media (max-width:640px){ .entry{ grid-template-columns:1fr; gap:10px; } }
+  .entry-id{ font-family:'Space Mono',monospace; font-size:12px; color:var(--text-dim); padding-top:4px; }
+  .entry-title{ font-family:'Fraunces',serif; font-weight:600; font-size:1.4rem; margin:0 0 8px; }
+  .entry-title a{ text-decoration:none; border-bottom:1px solid transparent; transition:border-color .2s ease; }
+  .entry-title a:hover{ border-color:var(--system); }
+  .entry-desc{ color:var(--text-dim); max-width:60ch; margin:0 0 14px; font-size:0.98rem; }
+  .entry-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+  .entry-tags span{ font-family:'Space Mono',monospace; font-size:10.5px; color:var(--system); }
+  .entry-tags span::before{ content:'#'; opacity:.6; }
+  .entry .margin-note{ font-size:1.15rem; display:inline-block; margin-top:4px; }
+
+  /* ---------- vault ---------- */
+  .vault-wrap{ background:var(--paper); color:var(--surface-text); margin:0 -28px; padding:96px 28px; }
+  .vault-wrap .wrap{ padding:0; }
+  .vault-wrap .eyebrow{ color:var(--surface-accent); }
+  .vault-wrap .eyebrow::before{ color:var(--surface-line); }
+  .vault-wrap h2.section-title{ color:var(--surface-text); }
+  .vault-intro{ color:var(--surface-text-dim); max-width:56ch; margin-bottom:44px; font-size:0.98rem; }
+  /* ---------- locker ---------- */
+  .locker-wrap{ display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 0 8px; }
+  .locker-btn{
+    background:none; border:2px solid var(--surface-line); border-radius:10px;
+    padding:34px 52px; cursor:pointer; display:flex; flex-direction:column;
+    align-items:center; gap:14px; transition:transform .25s ease, border-color .25s ease, background .25s ease;
+    font-family:inherit; color:inherit;
+  }
+  .locker-btn:hover{ transform:translateY(-3px); border-color:var(--surface-accent); background:rgba(156,118,131,0.06); }
+  .locker-btn:active{ transform:translateY(-1px) scale(.97); }
+  .locker-btn.shake{ animation:lockerShake .45s ease; }
+  @keyframes lockerShake{
+    0%,100%{ transform:rotate(0) translateY(0); }
+    20%{ transform:rotate(-3deg) translateY(-2px); }
+    40%{ transform:rotate(3deg); }
+    60%{ transform:rotate(-2deg); }
+    80%{ transform:rotate(1deg); }
+  }
+  .lock-svg{ color:var(--surface-accent); overflow:visible; }
+  .lock-shackle{ transform-origin:22px 20px; transition:transform .55s cubic-bezier(.34,1.56,.64,1); }
+  .locker-btn.open .lock-shackle{ transform:rotate(-38deg) translate(-6px,-3px); }
+  .locker-btn.open .lock-body{ animation:lockPop .4s ease; }
+  @keyframes lockPop{ 0%{ transform:scale(1); } 45%{ transform:scale(1.1); } 100%{ transform:scale(1); } }
+  .locker-label{ font-family:'Space Mono',monospace; font-size:12px; color:var(--surface-accent); letter-spacing:.05em; text-transform:lowercase; }
+
+  .vault-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--surface-line);
+    max-height:0; opacity:0; overflow:hidden; margin-top:0;
+    transition:max-height .7s ease, opacity .5s ease .05s, margin-top .7s ease;
+  }
+  .vault-grid.open{ max-height:1400px; opacity:1; margin-top:44px; }
+  @media (max-width:760px){ .vault-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:520px){ .vault-grid{ grid-template-columns:1fr; } }
+  .vault-card{
+    background:var(--paper); padding:26px 22px; min-height:170px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    opacity:0; transform:translateY(26px);
+    transition:background .2s ease, transform .45s ease, opacity .45s ease;
+  }
+  .vault-grid.open .vault-card{ opacity:1; transform:translateY(0); }
+  .vault-grid.open .vault-card:nth-child(1){ transition-delay:0s, .14s, .14s; }
+  .vault-grid.open .vault-card:nth-child(2){ transition-delay:0s, .22s, .22s; }
+  .vault-grid.open .vault-card:nth-child(3){ transition-delay:0s, .30s, .30s; }
+  .vault-grid.open .vault-card:nth-child(4){ transition-delay:0s, .38s, .38s; }
+  .vault-grid.open .vault-card:nth-child(5){ transition-delay:0s, .46s, .46s; }
+  .vault-grid.open .vault-card:nth-child(6){ transition-delay:0s, .54s, .54s; }
+  .vault-card:hover{ background:var(--paper-dim); transform:translateY(-5px); }
+  .vault-card .vc-top{ font-family:'Space Mono',monospace; font-size:11px; color:var(--surface-accent); }
+  .vault-card h3{ font-family:'Fraunces',serif; font-style:italic; font-weight:500; font-size:1.15rem; margin:10px 0 8px; color:var(--surface-text); }
+  .vault-card p{ font-size:0.88rem; color:var(--surface-text-dim); margin:0; }
+
+  /* ---------- letter ---------- */
+  .letter-wrap{ background:var(--paper); color:var(--surface-text); margin:0 -28px; padding:96px 28px; }
+  .letter-wrap .wrap{ padding:0; }
+  .letter-wrap .eyebrow{ color:var(--surface-accent); }
+  .letter-wrap .eyebrow::before{ color:var(--surface-line); }
+  .letter-wrap h2.section-title{ color:var(--surface-text); }
+  .letter-intro{ color:var(--surface-text-dim); max-width:56ch; margin-bottom:44px; font-size:0.98rem; }
+  .envelope-wrap{ display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 0 8px; }
+  .envelope-btn{
+    background:none; border:2px solid var(--surface-line); border-radius:10px;
+    padding:26px 44px; cursor:pointer; display:flex; flex-direction:column;
+    align-items:center; gap:12px; transition:transform .25s ease, border-color .25s ease, background .25s ease;
+    font-family:inherit; color:inherit;
+  }
+  .envelope-btn:hover{ transform:translateY(-3px); border-color:var(--surface-accent); background:rgba(156,118,131,0.06); }
+  .envelope-btn:active{ transform:translateY(-1px) scale(.97); }
+  .envelope-svg{ overflow:visible; }
+  .letter-paper{ transform-origin:59px 62px; transition:transform .55s cubic-bezier(.34,1.56,.64,1); }
+  .envelope-btn.open .letter-paper{ transform:translateY(-30px) rotate(-2deg); }
+  .envelope-flap{ transform-origin:59px 33px; transition:transform .5s ease, opacity .4s ease; }
+  .envelope-btn.open .envelope-flap{ transform:rotate(178deg) translateY(2px); opacity:.9; }
+  .envelope-label{ font-family:'Space Mono',monospace; font-size:12px; color:var(--surface-accent); letter-spacing:.05em; text-transform:lowercase; }
+
+  .letter-spill{
+    display:flex; flex-wrap:wrap; gap:22px; justify-content:center;
+    max-height:0; opacity:0; overflow:hidden; margin-top:0;
+    transition:max-height 1s ease, opacity .6s ease .05s, margin-top 1s ease;
+  }
+  .letter-spill.open{ max-height:900px; opacity:1; margin-top:52px; }
+  .photo-card{
+    background:var(--paper-dim); padding:12px 12px 20px; border-radius:2px; width:132px;
+    box-shadow:0 10px 22px rgba(0,0,0,0.22);
+    opacity:0; transform:translateY(-36px) scale(.5) rotate(var(--rot,0deg));
+    transition:transform .6s cubic-bezier(.34,1.56,.64,1), opacity .5s ease, box-shadow .25s ease;
+  }
+  .letter-spill.open .photo-card{ opacity:1; transform:translateY(0) scale(1) rotate(var(--rot,0deg)); }
+  .photo-card:hover{ transform:translateY(-6px) scale(1.06) rotate(var(--rot,0deg)) !important; box-shadow:0 16px 28px rgba(0,0,0,0.28); }
+  .photo-card .frame{
+    width:100%; aspect-ratio:1/1; border-radius:1px;
+    background:linear-gradient(135deg, var(--hair), var(--paper-dim) 60%);
+    border:1.5px dashed var(--surface-line);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .photo-card .frame svg{ width:30%; height:30%; color:var(--surface-text-dim); opacity:.55; }
+  .photo-card .cap{
+    font-family:'Caveat',cursive; font-size:1.15rem; text-align:center; line-height:1.1;
+    margin:10px 0 0; color:var(--surface-text);
+  }
+
+  /* ---------- writing ---------- */
+  .write-list{ list-style:none; margin:0; padding:0; }
+  .write-item{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:20px 0; border-top:1px solid var(--hair); gap:20px;
+  }
+  .write-item:first-child{ border-top:none; }
+  .write-title{ font-family:'Fraunces',serif; font-style:italic; font-size:1.15rem; }
+  .write-meta{ font-family:'Space Mono',monospace; font-size:11px; color:var(--text-dim); white-space:nowrap; }
+
+  /* ---------- log (timeline) ---------- */
+  .log{ font-family:'Space Mono',monospace; font-size:13px; }
+  .log-line{
+    display:flex; gap:16px; padding:12px 0; border-top:1px dashed var(--hair); align-items:flex-start;
+    opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease;
+  }
+  .log-line.visible{ opacity:1; transform:translateY(0); }
+  .log-line:nth-child(1){ transition-delay:.03s; }
+  .log-line:nth-child(2){ transition-delay:.10s; }
+  .log-line:nth-child(3){ transition-delay:.17s; }
+  .log-line:nth-child(4){ transition-delay:.24s; }
+  .log-line:nth-child(5){ transition-delay:.31s; }
+  .log-line:nth-child(6){ transition-delay:.38s; }
+  .log-line:first-child{ border-top:none; }
+  .log-hash{ color:var(--margin); flex-shrink:0; }
+  .log-tag{ color:var(--system); flex-shrink:0; width:118px; }
+  .log-msg{ color:var(--text); }
+  @media (max-width:640px){ .log-line{ flex-wrap:wrap; } .log-tag{ width:auto; } }
+
+  /* ---------- contact / footer ---------- */
+  .contact-title{ font-family:'Fraunces',serif; font-weight:450; font-style:italic; font-size:clamp(2rem,5vw,3.2rem); max-width:14ch; margin:0 0 30px; }
+  footer{ padding:48px 0 60px; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .foot-links{ display:flex; gap:20px; }
+  .foot-links a{ font-family:'Space Mono',monospace; font-size:12px; text-decoration:none; color:var(--text-dim); }
+  .foot-links a:hover{ color:var(--text); }
+  .foot-note{ font-family:'Space Mono',monospace; font-size:11px; color:var(--hair); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="navrow">
+    <div class="navmark">abhirami<span>.ramadas / v2</span></div>
+    <nav class="links">
+      <a href="#about">about</a>
+      <a href="#work">work</a>
+      <a href="#vault">vault</a>
+      <a href="#letter">letter</a>
+      <a href="#writing">writing</a>
+      <a href="#log">log</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark theme">
+      <span class="icon sun">☀</span><span class="icon moon">☾</span>
+      <span id="themeLabel">dark</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="status-line hero-anim" style="animation-delay:.05s;">
+      <span class="status-dot"></span>
+      <span id="statusText">STATUS: interning @ EY, building things off the clock</span><span class="cursor"></span>
+    </div>
+    <h1 class="hero-title hero-anim" style="animation-delay:.15s;">systems<br>engineer with<br><em>marginalia.</em></h1>
+    <p class="hero-sub hero-anim" style="animation-delay:.3s;">Abhirami Ramadas — final-year IT engineer by day, SAP HCM consultant in training, and someone who keeps annotating the technical documentation with feelings.</p>
+    <div class="hero-annot hero-anim" style="animation-delay:.42s;">
+      <span class="margin-note">still figuring out if that's a bug or a feature</span>
+    </div>
+    <div class="btnrow hero-anim" style="animation-delay:.52s;">
+      <a class="btn filled" href="#work">see the work</a>
+      <a class="btn" href="#writing">read the essays</a>
+    </div>
+    <div class="scroll-cue hero-anim" style="animation-delay:.7s;">
+      <span>scroll</span><span class="arrow">↓</span>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="fade-in">
+  <div class="wrap">
+    <p class="eyebrow">about</p>
+    <div class="about-grid">
+      <div class="about-body">
+        <p class="lede">I write clean code during the day and dense, overlong paragraphs at night. Both are just different ways of trying to get a system to behave.</p>
+        <p>I'm in my final year of a B.Tech in IT, currently interning as an SAP HCM Consultant at EY in Trivandrum — learning how large organizations encode people into systems, which is either deeply unromantic or exactly the kind of thing I'd write an essay about. My main academic project is an AI-based accident detection system; before that, a calorie-burn prediction model taught me that machine learning is mostly just very patient arithmetic.</p>
+        <p>Outside of coursework, I build small emotionally-loaded software — apps that track flights, constellations, and relationships with the same rigor you'd bring to a production system — and write personal essays on Substack and LessWrong, usually about the gap between how interfaces are designed and how software actually thinks.</p>
+        <div class="stack">
+          <p class="stack-label">currently reaching for</p>
+          <div class="chips">
+            <span class="chip">React</span>
+            <span class="chip">Python / ML</span>
+            <span class="chip">SAP HCM</span>
+            <span class="chip">Supabase</span>
+            <span class="chip">Electron.js</span>
+            <span class="chip">GCP / AWS</span>
+            <span class="chip">Git Actions</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-side">
+        <span class="margin-note right">I promise the pixel art hobby is relevant to something eventually</span>
+        <p style="color:var(--text-dim); font-size:0.92rem; margin-top:26px;">Based in Trivandrum, Kerala. Reads Han Kang and Kafka for fun, which probably explains the tone of this website.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="fade-in">
+  <div class="wrap">
+    <p class="eyebrow">work</p>
+    <h2 class="section-title">things built with a spec <em style="color:var(--margin);">and a feeling.</em></h2>
+
+    <div class="entry">
+      <div class="entry-id mono">ENTRY_01</div>
+      <div>
+        <h3 class="entry-title"><a href="https://amazing-alfajores-61b61e.netlify.app/" target="_blank" rel="noopener">Droplet</a></h3>
+        <p class="entry-desc">A gamified water-tracking PWA, because apparently I needed a tiny creature silently judging my hydration to actually drink water. Logs intake, levels up a water companion, sends reminders I mostly ignore. Dark mode included so the dehydration looks aesthetic at least.</p>
+        <div class="entry-tags"><span>react</span><span>typescript</span><span>zustand</span><span>pwa</span></div>
+        <span class="margin-note">the real MVP of my kidneys</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-id mono">ENTRY_02</div>
+      <div>
+        <h3 class="entry-title"><a href="https://github.com/abhiramiramadas/weatherella" target="_blank" rel="noopener">Weatherella</a></h3>
+        <p class="entry-desc">A Discord bot that stalks the weather so I don't have to open an app like a functioning adult. DMs me every morning with the forecast, remembers saved cities, has more personality than most group chats I'm in.</p>
+        <div class="entry-tags"><span>python</span><span>discord.py</span><span>openweathermap</span></div>
+        <span class="margin-note">screams about rain before the rain does</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-id mono">ENTRY_03</div>
+      <div>
+        <h3 class="entry-title"><a href="https://github.com/abhiramiramadas/wordly" target="_blank" rel="noopener">Wordly</a></h3>
+        <p class="entry-desc">An Electron Wordle clone I built because opening the actual Wordle website felt like too much commitment. Validates real words against the Datamuse API, keeps an offline fallback list for when the wifi also gives up on me.</p>
+        <div class="entry-tags"><span>electron</span><span>javascript</span><span>datamuse-api</span></div>
+        <span class="margin-note right">yes I built an app to avoid a website</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="vault-wrap">
+  <section id="vault" class="fade-in">
+    <div class="wrap">
+      <p class="eyebrow">the vault</p>
+      <h2 class="section-title">projects with no <em style="color:var(--surface-accent);">professional justification.</em></h2>
+      <p class="vault-intro">Built for one person, or for no one, entirely on my own time. They still shipped.</p>
+
+      <div class="locker-wrap">
+        <button class="locker-btn" id="lockerBtn" type="button" aria-expanded="false" aria-controls="vaultGrid">
+          <svg class="lock-svg" width="52" height="52" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="lock-shackle" d="M13 20V14a9 9 0 0 1 18 0v6" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/>
+            <rect class="lock-body" x="8" y="20" width="28" height="18" rx="4" fill="currentColor"/>
+            <circle cx="22" cy="27" r="2.6" fill="var(--paper)"/>
+            <rect x="20.7" y="28.5" width="2.6" height="5" rx="1.3" fill="var(--paper)"/>
+          </svg>
+          <span class="locker-label" id="lockerLabel">click to unlock</span>
+        </button>
+      </div>
+
+      <div class="vault-grid" id="vaultGrid">
+        <div class="vault-card">
+          <div class="vc-top">a 3x3 grid did not need this much drama</div>
+          <div>
+            <h3><a href="https://roaring-blini-15df9c.netlify.app/" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Elements Battle</a></h3>
+            <p>Tic-tac-toe reimagined as a Fire vs Water showdown, because a plain 3x3 grid felt like it wasn't trying hard enough. Glassmorphism, animated wins, a scoreboard that takes three-in-a-row way too seriously.</p>
+          </div>
+        </div>
+        <div class="vault-card">
+          <div class="vc-top">eggactly on time, every time (sorry)</div>
+          <div>
+            <h3><a href="https://github.com/abhiramiramadas/clucko-clock" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Cluck o' Clock</a></h3>
+            <p>A pixel-art egg timer with a chick that hatches when your countdown's done, because a plain timer felt like a personal insult to my aesthetic standards. Built in Electron for reasons that made sense at 2am.</p>
+          </div>
+        </div>
+        <div class="vault-card">
+          <div class="vc-top">RIP to a real one</div>
+          <div>
+            <h3><a href="https://abhiramiramadas-portfolio.vercel.app/" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Windows XP Portfolio</a></h3>
+            <p>Portfolio v1 — a fully working XP desktop, draggable windows, boot animation, the works. Retired because I got bored, not because it stopped working. It deserved better honestly.</p>
+          </div>
+        </div>
+        <div class="vault-card">
+          <div class="vc-top">retail therapy, automated</div>
+          <div>
+            <h3><a href="https://github.com/abhiramiramadas/Pricehistory" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Pricehistory</a></h3>
+            <p>A Python bot that stalks iPhone prices across Flipkart, Amazon, and myG, then messages me on Telegram the second one drops. Logs everything, plots graphs, runs on GitHub Actions because a free cron job beats setting an alarm.</p>
+          </div>
+        </div>
+        <div class="vault-card">
+          <div class="vc-top">skincare triumphs over suffering</div>
+          <div>
+            <h3><a href="https://railway-topaz.vercel.app/" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Rail Gate Predictor</a></h3>
+            <p>Predicts when the level crossing near my house is about to close, mainly so my dad stops getting sun-tanned waiting for trains. Live train data, countdown timers, a map. Built out of love and mild UV concern.</p>
+          </div>
+        </div>
+        <div class="vault-card">
+          <div class="vc-top">"kept it in my bag I swear"</div>
+          <div>
+            <h3><a href="https://github.com/abhiramiramadas/LostandFound" target="_blank" rel="noopener" style="color:inherit; text-decoration:none;">Lost &amp; Found</a></h3>
+            <p>A lost-and-found board for college, because someone loses their ID roughly every week. Post an item, search for one, get your dignity back (results not guaranteed). Still mid-build — the chaos is catalogued either way.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="letter-wrap">
+  <section id="letter" class="fade-in">
+    <div class="wrap">
+      <p class="eyebrow">for the record</p>
+      <h2 class="section-title">things I like, <em style="color:var(--surface-accent);">for no reason at all.</em></h2>
+      <p class="letter-intro">Not a project, not a skill, just the small physical stuff that's true about me. Open it.</p>
+
+      <div class="envelope-wrap">
+        <button class="envelope-btn" id="letterBtn" type="button" aria-expanded="false" aria-controls="letterSpill">
+          <svg class="envelope-svg" width="118" height="86" viewBox="0 0 118 86" xmlns="http://www.w3.org/2000/svg">
+            <!-- letter paper, peeking out, slides up on open -->
+            <g class="letter-paper">
+              <rect x="20" y="4" width="78" height="58" rx="2" fill="var(--paper-dim)" stroke="var(--surface-line)" stroke-width="1.5"/>
+              <line x1="30" y1="18" x2="88" y2="18" stroke="var(--surface-line)" stroke-width="2"/>
+              <line x1="30" y1="27" x2="88" y2="27" stroke="var(--surface-line)" stroke-width="2"/>
+              <line x1="30" y1="36" x2="70" y2="36" stroke="var(--surface-line)" stroke-width="2"/>
+              <path d="M30 48 Q40 42 50 48 T70 48" fill="none" stroke="var(--margin)" stroke-width="1.6" stroke-linecap="round"/>
+            </g>
+            <!-- envelope body -->
+            <rect x="4" y="30" width="110" height="52" rx="4" fill="var(--paper)" stroke="var(--surface-accent)" stroke-width="2.4"/>
+            <!-- envelope flap, front-facing, opens away -->
+            <path class="envelope-flap" d="M4 33 L59 68 L114 33" fill="var(--paper)" stroke="var(--surface-accent)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+          <span class="envelope-label" id="letterLabel">click to open</span>
+        </button>
+      </div>
+
+      <div class="letter-spill" id="letterSpill">
+        <div class="photo-card" style="--rot:-7deg; transition-delay:.05s;">
+          <div class="frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></div>
+          <p class="cap">photo booth strips</p>
+        </div>
+        <div class="photo-card" style="--rot:5deg; transition-delay:.14s;">
+          <div class="frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></div>
+          <p class="cap">Snoopy</p>
+        </div>
+        <div class="photo-card" style="--rot:-4deg; transition-delay:.23s;">
+          <div class="frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></div>
+          <p class="cap">digicam</p>
+        </div>
+        <div class="photo-card" style="--rot:6deg; transition-delay:.32s;">
+          <div class="frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></div>
+          <p class="cap">smell of vanilla</p>
+        </div>
+        <div class="photo-card" style="--rot:-5deg; transition-delay:.41s;">
+          <div class="frame"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg></div>
+          <p class="cap">Kuromi</p>
+        </div>
+      </div>
+      <p style="font-family:'Space Mono',monospace; font-size:11px; color:var(--surface-text-dim); margin-top:22px; text-align:center;">// placeholder frames — swap the &lt;div class="frame"&gt; contents for &lt;img src="your-photo.jpg"&gt; to drop in real photos</p>
+    </div>
+  </section>
+</div>
+
+<section id="writing" class="fade-in">
+  <div class="wrap">
+    <p class="eyebrow">writing</p>
+    <h2 class="section-title">the marginalia,<em style="color:var(--margin);"> collected.</em></h2>
+    <ul class="write-list">
+      <li class="write-item">
+        <span class="write-title">On turning twenty-two</span>
+        <span class="write-meta">substack</span>
+      </li>
+      <li class="write-item">
+        <span class="write-title">Interface design vs. software logic</span>
+        <span class="write-meta">lesswrong</span>
+      </li>
+      <li class="write-item">
+        <span class="write-title">Notes on building things that hold feelings</span>
+        <span class="write-meta">substack</span>
+      </li>
+    </ul>
+    <p style="font-family:'Space Mono',monospace; font-size:11px; color:var(--hair); margin-top:18px;">// titles pulled from memory — drop your real links + slugs in before publishing</p>
+  </div>
+</section>
+
+<section id="log" class="fade-in">
+  <div class="wrap">
+    <p class="eyebrow">log</p>
+    <h2 class="section-title">git log <em style="color:var(--margin);">--author=abhi</em></h2>
+    <div class="log">
+      <div class="log-line">
+        <span class="log-hash">a3f1c2e</span>
+        <span class="log-tag">[current]</span>
+        <span class="log-msg">interning as SAP HCM Consultant @ EY, Trivandrum</span>
+      </div>
+      <div class="log-line">
+        <span class="log-hash">9e0b4d1</span>
+        <span class="log-tag">[8th sem]</span>
+        <span class="log-msg">final year of B.Tech IT — building AI Accident Detection System</span>
+      </div>
+      <div class="log-line">
+        <span class="log-hash">6c72a90</span>
+        <span class="log-tag">[side-quest]</span>
+        <span class="log-msg">automated daily commits via GitHub Actions so the contribution graph never lies</span>
+      </div>
+      <div class="log-line">
+        <span class="log-hash">44d8f11</span>
+        <span class="log-tag">[personal]</span>
+        <span class="log-msg">shipped Still With You, Parallel Journeys, Our Journey — same year, three different feelings</span>
+      </div>
+      <div class="log-line">
+        <span class="log-hash">1a90cbe</span>
+        <span class="log-tag">[earlier]</span>
+        <span class="log-msg">calorie burn prediction, first real ML mini-project</span>
+      </div>
+      <div class="log-line">
+        <span class="log-hash">0000000</span>
+        <span class="log-tag">[init]</span>
+        <span class="log-msg">started B.Tech in Information Technology</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="fade-in">
+  <div class="wrap">
+    <p class="eyebrow">contact</p>
+    <h2 class="contact-title">say something worth <em style="color:var(--margin);">annotating.</em></h2>
+    <div class="btnrow">
+      <a class="btn filled" href="mailto:abhiramiramadas2004@gmail.com">email me</a>
+      <a class="btn" href="https://github.com/abhiramiramadas" target="_blank" rel="noopener">github</a>
+      <a class="btn" href="https://linkedin.com/in/abhiramiramadas" target="_blank" rel="noopener">linkedin</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <span class="foot-note">© 2026 abhirami ramadas — built with too many browser tabs</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // scroll-triggered fade-ins
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in, .entry, .log-line').forEach(el=>io.observe(el));
+
+  // locker: click to unlock the vault
+  const lockerBtn = document.getElementById('lockerBtn');
+  const lockerLabel = document.getElementById('lockerLabel');
+  const vaultGrid = document.getElementById('vaultGrid');
+  let vaultOpen = false;
+  lockerBtn.addEventListener('click', ()=>{
+    vaultOpen = !vaultOpen;
+    lockerBtn.classList.toggle('open', vaultOpen);
+    lockerBtn.setAttribute('aria-expanded', String(vaultOpen));
+    vaultGrid.classList.toggle('open', vaultOpen);
+    lockerLabel.textContent = vaultOpen ? 'locked back up' : 'click to unlock';
+    if(vaultOpen){
+      lockerLabel.textContent = 'unlocked';
+      setTimeout(()=>{ vaultGrid.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 150);
+    } else {
+      // little shake for flavor when re-locking
+      lockerBtn.classList.remove('shake');
+      void lockerBtn.offsetWidth;
+      lockerBtn.classList.add('shake');
+      lockerLabel.textContent = 'click to unlock';
+    }
+  });
+
+  // theme toggle: persisted, defaults to system preference
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeLabel = document.getElementById('themeLabel');
+  function applyTheme(theme){
+    root.setAttribute('data-theme', theme);
+    themeLabel.textContent = theme;
+    try{ localStorage.setItem('theme', theme); }catch(e){}
+  }
+  let startingTheme = 'dark';
+  try{
+    const saved = localStorage.getItem('theme');
+    if(saved){ startingTheme = saved; }
+    else if(window.matchMedia('(prefers-color-scheme: light)').matches){ startingTheme = 'light'; }
+  }catch(e){}
+  applyTheme(startingTheme);
+  themeToggle.addEventListener('click', ()=>{
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    applyTheme(next);
+  });
+
+  // letter: click the envelope to spill the contents out
+  const letterBtn = document.getElementById('letterBtn');
+  const letterLabel = document.getElementById('letterLabel');
+  const letterSpill = document.getElementById('letterSpill');
+  let letterOpen = false;
+  letterBtn.addEventListener('click', ()=>{
+    letterOpen = !letterOpen;
+    letterBtn.classList.toggle('open', letterOpen);
+    letterBtn.setAttribute('aria-expanded', String(letterOpen));
+    letterSpill.classList.toggle('open', letterOpen);
+    letterLabel.textContent = letterOpen ? 'tuck it back in' : 'click to open';
+    if(letterOpen){
+      setTimeout(()=>{ letterSpill.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 200);
+    }
+  });
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const statusEl = document.getElementById('statusText');
+  const fullText = statusEl.textContent;
+  if(!prefersReduced){
+    statusEl.textContent = '';
+    let i = 0;
+    function type(){
+      if(i <= fullText.length){
+        statusEl.textContent = fullText.slice(0, i);
+        i++;
+        setTimeout(type, 18);
+      }
+    }
+    type();
+  }
+</script>
+
+</body>
+</html>
